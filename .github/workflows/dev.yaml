@@ -4,14 +4,22 @@ on:
     branches:
       - develop
     types: 
-      - closed
+      - opened
+      - synchronize
     paths:
       - 'dags/**'
       - '.github/workflows/**'
 
 jobs:
+  no_merge:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo The PR was merged
+
   if_merged:
     if: github.event.pull_request.merged == true
+    needs: [no_merge]
     runs-on: ubuntu-latest
     steps:
     - run: |
