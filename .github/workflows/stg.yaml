@@ -1,0 +1,22 @@
+name: github actions stg test
+on:
+  pull_request:
+    branches:
+      - release/*
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  no_merge:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo hoge hoge
+
+  if_merged:
+    needs: [no_merge]
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo The PR was merged
