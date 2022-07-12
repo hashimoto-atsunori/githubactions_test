@@ -2,7 +2,7 @@ name: github actions stg test
 on:
   pull_request:
     branches:
-      - release/*
+      - main
     types:
       - opened
       - synchronize
