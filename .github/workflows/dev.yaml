@@ -1,8 +1,8 @@
-name: github actions test
+name: github actions dev test
 on:
   pull_request:
     branches:
-      - develop
+      - main
     types: 
       - opened
       - synchronize
