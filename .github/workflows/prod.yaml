@@ -1,22 +1,13 @@
 name: Prod
 
 on:
-  # releaseタグがmasterにpushされたタイミングでトリガ
-  # example: git push origin v1.x.x 
   push:
-    branches:
-      - main
     tags:
-      - 'v*'
-  release:
-    types:
-      - created
+      - 'v*.*.*'
 
 jobs:
-  no_merge:
+  prod:
     runs-on: ubuntu-latest
     steps:
     - run: |
         echo hoge hoge
-
-

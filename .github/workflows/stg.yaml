@@ -8,16 +8,7 @@ on:
       - synchronize
 
 jobs:
-  no_merge:
-    if:  startsWith(github.head_ref, 'releases/')
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo hoge hoge
-
-  if_merged:
-    if:  startsWith(github.head_ref, 'releases/')
-    needs: [no_merge]
+  stg:
     runs-on: ubuntu-latest
     steps:
     - run: |
