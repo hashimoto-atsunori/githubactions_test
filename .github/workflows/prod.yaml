@@ -3,7 +3,7 @@ name: github actions prod test
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 jobs:
   prod:
