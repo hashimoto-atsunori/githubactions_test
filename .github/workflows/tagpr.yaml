@@ -5,14 +5,17 @@ on:
     branches: 
       - main
 jobs:
-  deploy:
+  tagpr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: Songmu/tagpr@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ./.github/actions
-        with:
-          tag: ${{ steps.tagpr.outputs.tag }}
-        if: "steps.tagpr.outputs.tag != ''"
+  release:
+    needs: tagpr
+    if: needs.tagpr.outputs.tagpr-tag != ''
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo hoge hoge
