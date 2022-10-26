@@ -7,6 +7,8 @@ on:
 jobs:
   tagpr:
     runs-on: ubuntu-latest
+    outputs:
+      tagpr-tag: ${{ steps.run-tagpr.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
       - uses: Songmu/tagpr@v1
