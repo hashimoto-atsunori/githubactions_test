@@ -2,12 +2,17 @@
 name: tagpr
 on:
   push:
-    branches: ["main"]
+    branches: 
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: Songmu/tagpr@main
+      - uses: Songmu/tagpr@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions
+        with:
+          tag: ${{ steps.tagpr.outputs.tag }}
+        if: "steps.tagpr.outputs.tag != ''"
