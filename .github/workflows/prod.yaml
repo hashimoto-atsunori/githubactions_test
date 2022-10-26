@@ -6,10 +6,8 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  release:
+  prod:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: ./.github/actions
-      with:
-        tag: ${{ github.ref }}
+    - run: |
+        echo hoge hoge
