@@ -1,0 +1,6 @@
+jobs:
+  prod:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo hoge hoge
