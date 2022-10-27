@@ -1,6 +1,6 @@
 runs:
   using: "Composite"
   steps:
-    - name: Install dependencies
-      run: npm ci
+    - name: prod test
+      run: echo hoge
       shell: bash
