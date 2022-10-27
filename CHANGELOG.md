@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.7](https://github.com/hashimoto-atsunori/githubactions_test/compare/v1.0.6...v1.0.7) - 2022-10-27
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/31
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/33
+
 ## [v1.0.6](https://github.com/hashimoto-atsunori/githubactions_test/compare/v1.0.5...v1.0.6) - 2022-10-26
 - fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/29
 
