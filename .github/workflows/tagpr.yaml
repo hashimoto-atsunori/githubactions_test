@@ -7,17 +7,13 @@ on:
 jobs:
   tagpr:
     runs-on: ubuntu-latest
-    outputs:
-      tagpr-tag: ${{ steps.run-tagpr.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
-      - uses: Songmu/tagpr@v1
+      - id: tagpr
+        uses: Songmu/tagpr@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  release:
-    needs: tagpr
-    if: needs.tagpr.outputs.tagpr-tag != ''
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo hoge hoge
+      - uses: ./.github/actions/release
+        with:
+          tag: ${{ steps.tagpr.outputs.tag }}
+        if: "steps.tagpr.outputs.tag != ''"
