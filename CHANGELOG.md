@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.1](https://github.com/hashimoto-atsunori/githubactions_test/compare/v2.0.0...v2.0.1) - 2022-11-02
+- dev test by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/17
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/18
+- add by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/19
+- prod by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/21
+- aa by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/23
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/25
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/27
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/29
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/31
+- fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/33
+
 ## [v1.0.7](https://github.com/hashimoto-atsunori/githubactions_test/compare/v1.0.6...v1.0.7) - 2022-10-27
 - fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/31
 - fix by @hashimoto-atsunori in https://github.com/hashimoto-atsunori/githubactions_test/pull/33
