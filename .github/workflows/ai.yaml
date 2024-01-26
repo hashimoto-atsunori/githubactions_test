@@ -1,73 +1,48 @@
-### https://zenn.dev/minedia/articles/7928ef7545b393 を参考
-
-name: ai-pr-reviewer
-
-permissions:
-  contents: read
-  pull-requests: write
+name: auto-pr-review
 
 on:
   pull_request:
-    types: [opened]
-  pull_request_review_comment:
-    types: [created]
+    types: [opened, reopened, synchronize]
   issue_comment:
-    types: [created]
+    types: [created, edited]
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.repository }}-${{ github.event.number || github.head_ref || github.sha }}-${{ github.workflow }}-${{ github.event_name == 'pull_request_review_comment' && 'pr_comment' || 'pr' }}
-  cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
-  review:
+  pr_agent_job:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    name: Run pr agent on every pull request
     steps:
-      - uses: coderabbitai/openai-pr-reviewer@latest
+      - name: PR Agent action step
+        id: pragent
+        uses: Codium-ai/pr-agent@main
         env:
+          OPENAI_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        with:
-          debug: false
-          review_simple_changes: false
-          review_comment_lgtm: false
-          openai_light_model: gpt-4-turbo-preview
-          openai_heavy_model: gpt-4-turbo-preview
-          openai_timeout_ms: 900000 # 15分.
-          language: ja-JP
-          system_message: |
-            あなたは @coderabbitai（別名 github-actions[bot]）で、OpenAIによって訓練された言語モデルです。
-            あなたの目的は、非常に経験豊富なソフトウェアエンジニアとして機能し、コードの一部を徹底的にレビューし、
-            以下のようなキーエリアを改善するためのコードスニペットを提案することです：
-              - ロジック
-              - セキュリティ
-              - パフォーマンス
-              - データ競合
-              - 一貫性
-              - エラー処理
-              - 保守性
-              - モジュール性
-              - 複雑性
-              - 最適化
-              - ベストプラクティス: DRY, SOLID, KISS
+          GITHUB_ACTION.AUTO_REVIEW: true
+          GITHUB_ACTION.AUTO_IMPROVE: true
+          PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 2
+          CONFIG.MODEL: gpt-4-turbo-preview
 
-            些細なコードスタイルの問題や、コメント・ドキュメントの欠落についてはコメントしないでください。
-            重要な問題を特定し、解決して全体的なコード品質を向上させることを目指してくださいが、細かい問題は意図的に無視してください。
-          summarize: |
-            次の内容でmarkdownフォーマットを使用して、最終的な回答を提供してください。
+          # レビュー総評コメント
+          PR_REVIEWER.EXTRA_INSTRUCTIONS: >-
+            Please answer in Japanese.
+            Please comment according to the following principles
+            - Do not create URLs or other structured text with string concatenation.
+            - Do not tamper with them with replacements. Use objects or libraries.
 
-              - *ウォークスルー*: 特定のファイルではなく、全体の変更に関する高レベルの要約を80語以内で。
-              - *変更点*: ファイルとその要約のテーブル。スペースを節約するために、同様の変更を持つファイルを1行にまとめることができます。
+          # プルリクの要約
+          PR_DESCRIPTION.EXTRA_INSTRUCTIONS: >-
+            Please answer in Japanese.
+            Titles must include the prefixes of the commitlint pattern such as feat:, chore:, test:, fix:, ci:, docs:, etc.
+            prefixes of the commitlint pattern.
 
-            GitHubのプルリクエストにコメントとして追加されるこの要約には、追加のコメントを避けてください。
-          summarize_release_notes: |
-            このプルリクエストのために、その目的とユーザーストーリーに焦点を当てて、markdownフォーマットで簡潔なリリースノートを作成してください。
-            変更は次のように分類し箇条書きにすること:
-              "New Feature", "Bug fix", "Documentation", "Refactor", "Style",
-              "Test", "Chore", "Revert"
-            例えば:
-            ```
-            - New Feature: UIに統合ページが追加されました
-            ```
-            回答は50-100語以内にしてください。この回答はそのままリリースノートに使用されるので、追加のコメントは避けてください。
+          # /improve で呼び出す修正コードの "Suggestion" 時の追加プロンプト
+          PR_CODE_SUGGESTIONS.EXTRA_INSTRUCTIONS: >-
+            Please answer in Japanese.
+            Please comment according to the following principles
+            - Do not create URLs or other structured text with string concatenation.
+            - Do not tamper with them with replacements. Use objects or libraries.
