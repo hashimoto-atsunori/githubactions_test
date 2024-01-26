@@ -29,20 +29,20 @@ jobs:
 
           # レビュー総評コメント
           PR_REVIEWER.EXTRA_INSTRUCTIONS: >-
-            Please answer in Japanese.
             Please comment according to the following principles
             - Do not create URLs or other structured text with string concatenation.
             - Do not tamper with them with replacements. Use objects or libraries.
+            Please answer in Japanese.
 
           # プルリクの要約
           PR_DESCRIPTION.EXTRA_INSTRUCTIONS: >-
-            Please answer in Japanese.
             Titles must include the prefixes of the commitlint pattern such as feat:, chore:, test:, fix:, ci:, docs:, etc.
             prefixes of the commitlint pattern.
+            Please answer in Japanese.
 
           # /improve で呼び出す修正コードの "Suggestion" 時の追加プロンプト
           PR_CODE_SUGGESTIONS.EXTRA_INSTRUCTIONS: >-
-            Please answer in Japanese.
             Please comment according to the following principles
             - Do not create URLs or other structured text with string concatenation.
             - Do not tamper with them with replacements. Use objects or libraries.
+            Please answer in Japanese.
